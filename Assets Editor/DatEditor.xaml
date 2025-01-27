@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Assets_Editor" xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" 
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" 
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" d:DataContext="{d:DesignInstance Type=local:ShowList}"
         mc:Ignorable="d"
         Title="DatEditor" Height="860" Width="1220" materialDesign:ShadowAssist.CacheMode="{x:Null}" Loaded="Window_Loaded"
-        Style="{StaticResource MaterialDesignWindow}">
+        Style="{StaticResource MaterialDesignWindow}" Background="#FF7B7B7B">
     <Window.Resources>
         <local:ArithmeticConverter x:Key="ArithmeticConverter" />
         <local:NullableColorToBrushConverter x:Key="NullableColorToBrushConverter" />
@@ -136,7 +136,7 @@
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Row="0" Orientation="Horizontal">
                     <Menu IsMainMenu="True" materialDesign:MenuAssist.TopLevelMenuItemHeight="30">
-                        <MenuItem Header="_File">
+                        <MenuItem Header="_File" >
                             <MenuItem Header="Compile" Click="Compile_Click">
                                 <MenuItem.Icon>
                                     <materialDesign:PackIcon Kind="ContentSaveCogOutline" />
@@ -147,13 +147,11 @@
                                     <materialDesign:PackIcon Kind="FileDocumentArrowRight" />
                                 </MenuItem.Icon>
                             </MenuItem>
-                            <!-- 
-                        <MenuItem Header="OTB Editor" Click="OTBEditor_Click">
+                            <MenuItem Header="OTB Editor" Click="OTBEditor_Click">
                             <MenuItem.Icon>
                                 <materialDesign:PackIcon Kind="CookieEdit" />
                             </MenuItem.Icon>
-                        </MenuItem>
-                        -->
+                            </MenuItem>
                             <MenuItem Header="Search Item" Click="SearchItem_Click">
                                 <MenuItem.Icon>
                                     <materialDesign:PackIcon Kind="LayersSearchOutline" />
@@ -165,7 +163,7 @@
                                 </MenuItem.Icon>
                             </MenuItem>
                         </MenuItem>
-                        <MenuItem Header="_About">
+                        <MenuItem Header="_About" >
                             <MenuItem Header="About" Click="About_Click">
                                 <MenuItem.Icon>
                                     <materialDesign:PackIcon Kind="InformationVariant" />
@@ -173,9 +171,9 @@
                             </MenuItem>
                         </MenuItem>
                     </Menu>
-                    <Label Content="Light" VerticalAlignment="Center"/>
+                    <Label Content="Light" VerticalAlignment="Center" />
                     <ToggleButton x:Name="DarkModeToggle" Margin="5,0,5,0" Checked="DarkModeToggle_Checked" Unchecked="DarkModeToggle_Checked"/>
-                    <Label Content="Dark" VerticalAlignment="Center"/>
+                    <Label Content="Dark" VerticalAlignment="Center" />
                 </StackPanel>
                 <TabControl Grid.Row="1" x:Name="ViewTabControl" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,0,0,10">
                     <TabItem Header="Properties">
@@ -184,18 +182,18 @@
                                 <WrapPanel Orientation="Horizontal">
                                     <StackPanel Margin="5,0,5,10">
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Height="25">
-                                            <Label Content="Appearance Id:" Width="100" Padding="0,0,0,0" Margin="5,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                            <Label Content="Appearance Id:" Width="100" Padding="0,0,0,0" Margin="5,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" />
                                             <xctk:IntegerUpDown x:Name="A_FlagId" Margin="30,0,0,0" Width="100" Minimum="1"/>
                                             <Button x:Name="A_FlagIdCheck" Margin="35,0,0,0" Height="20" Content="{materialDesign:PackIcon Check}" ToolTip="Validate Id" PreviewMouseLeftButtonDown="A_FlagIdCheck_PreviewMouseLeftButtonDown"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Height="20">
                                             <CheckBox x:Name="A_FlagTransparency" Content="Transparency" Width="130" Margin="0,0,0,5" Padding="4,0,0,0"/>
-                                            <Label Content="Level:" Width="100" Padding="0,0,0,0" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                            <Label Content="Level:" Width="100" Padding="0,0,0,0" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" />
                                             <xctk:IntegerUpDown x:Name="A_FlagTransparencyLevel" Margin="0,0,0,0" Width="80" Minimum="0" Maximum="255"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Height="20">
                                             <CheckBox x:Name="A_FlagGround" Content="Ground" Width="130" Margin="0,0,0,5" Padding="4,0,0,0"/>
-                                            <Label Content="Speed:" Width="100" Padding="0,0,0,0" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                            <Label Content="Speed:" Width="100" Padding="0,0,0,0" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" />
                                             <xctk:IntegerUpDown x:Name="A_FlagGroundSpeed" Margin="0,0,0,0" Width="80" Minimum="0" Maximum="1000"/>
                                         </StackPanel>
                                         <CheckBox x:Name="A_FlagClip" Content="Clip" Margin="0,5,0,0"/>
@@ -208,12 +206,12 @@
                                         <CheckBox x:Name="A_FlagMultiuse" Content="Multiuse" Margin="0,5,0,0"/>
                                         <StackPanel Width="320" Orientation="Horizontal" HorizontalAlignment="Left" Height="20" Margin="0,5,0,0">
                                             <CheckBox x:Name="A_FlagWrite" Content="Write" Width="130" Margin="0,0,0,0" Padding="4,0,0,0"/>
-                                            <Label Content="Max Text Length:" Width="100" Padding="0,0,0,0" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                            <Label Content="Max Text Length:" Width="100" Padding="0,0,0,0" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" />
                                             <xctk:IntegerUpDown x:Name="A_FlagMaxTextLength" Margin="0,0,0,0" Width="80" Minimum="0" Maximum="1024"/>
                                         </StackPanel>
                                         <StackPanel Width="320" Orientation="Horizontal" HorizontalAlignment="Left" Height="20" Margin="0,5,0,0">
                                             <CheckBox x:Name="A_FlagWriteOnce" Content="Write Once" Width="130" Margin="0,0,0,0" Padding="4,0,0,0"/>
-                                            <Label Content="Max Text Length:" Width="100" Padding="0,0,0,0" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                            <Label Content="Max Text Length:" Width="100" Padding="0,0,0,0" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" />
                                             <xctk:IntegerUpDown x:Name="A_FlagMaxTextLengthOnce" Margin="0,0,0,0" Width="80" Minimum="0" Maximum="1024"/>
                                         </StackPanel>
                                         <CheckBox x:Name="A_FlagLiquidpool" Content="Liquid Pool" Margin="0,5,0,0"/>
@@ -227,7 +225,7 @@
                                         <CheckBox x:Name="A_FlagHang" Content="Hang" Margin="0,5,0,0"/>
                                         <StackPanel Width="320" Orientation="Horizontal" HorizontalAlignment="Left" Height="20" Margin="0,5,0,0">
                                             <CheckBox x:Name="A_FlagHook" Content="Hook" Width="130" Margin="0,0,0,5" Padding="4,0,0,0"/>
-                                            <Label Content="Hook Type:" Width="100" Padding="0,0,0,0" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                            <Label Content="Hook Type:" Width="100" Padding="0,0,0,0" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" />
                                             <ComboBox x:Name="A_FlagHookType" Width="80" BorderThickness="1,1,1,1" SelectedIndex="-1" Padding="6,1,5,3">
                                                 <ComboBoxItem Content="Hook South"/>
                                                 <ComboBoxItem Content="Hook East"/>
@@ -236,9 +234,9 @@
                                         <CheckBox x:Name="A_FlagRotate" Content="Rotate" Margin="0,5,0,0"/>
                                         <StackPanel Width="320" Orientation="Horizontal" HorizontalAlignment="Left" Height="22" Margin="0,5,0,0">
                                             <CheckBox x:Name="A_FlagLight" Content="Light" Width="60" Margin="0,0,0,0" Padding="4,-1,0,0"/>
-                                            <Label Content="Brightness:" Width="60" Padding="0,0,0,0" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                            <Label Content="Brightness:" Width="60" Padding="0,0,0,0" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" />
                                             <xctk:IntegerUpDown x:Name="A_FlagLightBrightness" Margin="0,0,0,0" Width="50" Minimum="0" Maximum="10"/>
-                                            <Label Content="Color:" Width="35" Padding="0,0,0,0" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                            <Label Content="Color:" Width="35" Padding="0,0,0,0" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" />
                                             <xctk:ColorPicker x:Name="A_FlagLightColorPicker" VerticalAlignment="Top" DisplayColorTooltip="False" ShowDropDownButton="False" ShowStandardColors="False" ShowTabHeaders="False" Width="30" SelectedColorChanged="A_FlagLightColorPickerChanged"/>
                                             <xctk:IntegerUpDown x:Name="A_FlagLightColor" Margin="15,0,0,0" Width="50" Minimum="0" Maximum="215" ValueChanged="A_FlagLightColor_ValueChanged"/>
                                         </StackPanel>
@@ -246,14 +244,14 @@
                                         <CheckBox x:Name="A_FlagTranslucent" Content="Translucent" Margin="0,5,0,5"/>
                                         <StackPanel Width="320" Orientation="Horizontal" HorizontalAlignment="Left" Height="20">
                                             <CheckBox x:Name="A_FlagShift" Content="Shift" Width="160" Margin="0,0,0,0" Padding="4,0,0,0"/>
-                                            <Label Content="X:" Width="15" Padding="0,0,0,0" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                            <Label Content="X:" Width="15" Padding="0,0,0,0" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" />
                                             <xctk:IntegerUpDown x:Name="A_FlagShiftX" Margin="0,0,0,0" Width="50" Minimum="0" Maximum="32"/>
-                                            <Label Content="Y:" Width="15" Padding="0,0,0,0" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                            <Label Content="Y:" Width="15" Padding="0,0,0,0" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" />
                                             <xctk:IntegerUpDown x:Name="A_FlagShiftY" Margin="0,0,0,0" Width="60" Minimum="0" Maximum="32"/>
                                         </StackPanel>
                                         <StackPanel Width="320" Orientation="Horizontal" HorizontalAlignment="Left" Height="20" Margin="0,5,0,0">
                                             <CheckBox x:Name="A_FlagHeight" Content="Height" Width="160" Margin="0,-1,0,0" Padding="4,0,0,0"/>
-                                            <Label Content="Elevation:" Width="90" Padding="0,0,0,0" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                            <Label Content="Elevation:" Width="90" Padding="0,0,0,0" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" />
                                             <xctk:IntegerUpDown x:Name="A_FlagElevation" Margin="0,0,0,0" Width="60" Minimum="0" Maximum="32"/>
                                         </StackPanel>
                                         <CheckBox x:Name="A_FlagReverseAddonEast" Content="Reverse addon east" Margin="0,5,0,0"/>
@@ -266,7 +264,7 @@
                                         <CheckBox x:Name="A_FlagAnimateAlways" Content="Animate Always" Margin="0,5,0,0"/>
                                         <StackPanel Width="320" Orientation="Horizontal" HorizontalAlignment="Left" Height="22" Margin="0,5,0,0">
                                             <CheckBox x:Name="A_FlagAutomap" Content="Auto Map" Width="160" Margin="0,-1,0,5" Padding="4,0,0,0"/>
-                                            <Label Content="Color:" Width="60" Padding="0,0,0,0" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                            <Label Content="Color:" Width="60" Padding="0,0,0,0" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" />
                                             <xctk:ColorPicker x:Name="A_FlagAutomapColorPicker" VerticalAlignment="Top" DisplayColorTooltip="False" ShowDropDownButton="False" ShowStandardColors="False" ShowTabHeaders="False" Width="30" SelectedColorChanged="A_FlagAutomapColorPickerChanged"/>
                                             <xctk:IntegerUpDown x:Name="A_FlagAutomapColor" Margin="10,0,0,0" Width="50" Minimum="0" Maximum="215" ValueChanged="A_FlagAutomapColor_ValueChanged"/>
                                         </StackPanel>
@@ -352,13 +350,13 @@
                                             </ComboBox>
                                         </StackPanel>
                                         <StackPanel Width="320" Orientation="Horizontal" HorizontalAlignment="Left" Height="20">
-                                            <Label Content="Trade As:" Width="60" Padding="0,0,0,0" Margin="20,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                            <Label Content="Trade As:" Width="60" Padding="0,0,0,0" Margin="20,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" />
                                             <xctk:IntegerUpDown x:Name="A_FlagMarketTrade" Margin="0,0,0,0" Width="80" Minimum="0"/>
-                                            <Label Content="Show As:" Width="60" Padding="0,0,0,0" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                            <Label Content="Show As:" Width="60" Padding="0,0,0,0" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" />
                                             <xctk:IntegerUpDown x:Name="A_FlagMarketShow" Margin="0,0,0,0" Width="90" Minimum="0"/>
                                         </StackPanel>
                                         <StackPanel Width="320" Orientation="Horizontal" HorizontalAlignment="Left" Height="20">
-                                            <Label Content="Profession:" Width="60" Padding="0,0,0,0" Margin="20,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                            <Label Content="Profession:" Width="60" Padding="0,0,0,0" Margin="20,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" />
                                             <ComboBox x:Name="A_FlagMarketProfession" Width="80" BorderThickness="1,1,1,1" SelectedIndex="-1" Padding="6,1,5,3" IsReadOnly="True" SelectionChanged="A_FlagMarketProfession_SelectionChanged">
                                                 <CheckBox x:Name="A_FlagProfessionAny" Content="Any"/>
                                                 <CheckBox x:Name="A_FlagProfessionNone" Content="None"/>
@@ -368,15 +366,15 @@
                                                 <CheckBox x:Name="A_FlagProfessionDruid" Content="Druid"/>
                                                 <CheckBox x:Name="A_FlagProfessionPromoted" Content="Promoted"/>
                                             </ComboBox>
-                                            <Label Content="Min level:" Width="60" Padding="0,0,0,0" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                            <Label Content="Min level:" Width="60" Padding="0,0,0,0" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" />
                                             <xctk:IntegerUpDown x:Name="A_FlagMarketlevel" Margin="0,0,0,0" Width="90" Minimum="0"/>
                                         </StackPanel>
                                         <StackPanel Width="320" Orientation="Horizontal" HorizontalAlignment="Left" Height="20">
-                                            <Label Content="Name:" Width="65" Padding="0,0,0,0" Margin="5,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                            <Label Content="Name:" Width="65" Padding="0,0,0,0" Margin="5,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" />
                                             <TextBox x:Name="A_FlagName" Width="240" Style="{StaticResource MaterialDesignComboBoxEditableTextBox}" FontWeight="Medium" VerticalAlignment="Center" Height="20"/>
                                         </StackPanel>
                                         <StackPanel Width="320" Orientation="Horizontal" HorizontalAlignment="Left" Height="20">
-                                            <Label Content="Desctiption:" Width="65" Padding="0,0,0,0" Margin="5,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                            <Label Content="Description:" Width="65" Padding="0,0,0,0" Margin="5,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" />
                                             <TextBox x:Name="A_FlagDescription" Width="240" Style="{StaticResource MaterialDesignComboBoxEditableTextBox}" FontWeight="Medium" VerticalAlignment="Center" Height="20"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal" Margin="0,5,0,0">

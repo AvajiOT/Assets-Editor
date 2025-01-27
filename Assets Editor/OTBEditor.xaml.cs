@@ -7,7 +7,10 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Animation;
+using System.Windows.Media.Imaging;
 using Tibia.Protobuf.Appearances;
+using static Assets_Editor.DatEditor;
 using static Assets_Editor.OTB;
 
 namespace Assets_Editor
@@ -19,6 +22,8 @@ namespace Assets_Editor
     {
         private dynamic _editor;
         private bool _legacy = false;
+        private List<CatalogTransparency> transparentSheets = new List<CatalogTransparency>();
+        private Storyboard itemsXMLStoryboard;
         public OTBEditor(dynamic editor, bool legacy)
         {
             InitializeComponent();
@@ -295,6 +300,112 @@ namespace Assets_Editor
             item.LightColor = (ushort)I_LightColor.Value;
             item.MaxReadWriteChars = (ushort)I_MaxReadWriteChars.Value;
             item.MaxReadChars = (ushort)I_MaxReadChars.Value;
+        }
+
+        private int GetSpriteIndex(FrameGroup frameGroup, int layers, int patternX, int patternY, int patternZ, int frames)
+        {
+            var spriteInfo = frameGroup.SpriteInfo;
+            int index = 0;
+
+            if (spriteInfo.Animation != null)
+                index = (int)(frames % spriteInfo.Animation.SpritePhase.Count);
+            index = index * (int)spriteInfo.PatternDepth + patternZ;
+            index = index * (int)spriteInfo.PatternHeight + patternY;
+            index = index * (int)spriteInfo.PatternWidth + patternX;
+            index = index * (int)spriteInfo.Layers + layers;
+            return index;
+        }
+
+        private Storyboard StartSingleSpriteAnimation(Image imageControl, Appearance appearance)
+        {
+            TimeSpan frameRate = TimeSpan.FromMilliseconds(200);
+            List<BitmapImage> imageFrames = new List<BitmapImage>();
+            try
+            {
+                for (int i = 0; i < appearance.FrameGroup[0].SpriteInfo.SpriteId.Count; i++)
+                {
+                    int index = GetSpriteIndex(appearance.FrameGroup[0], 0, (int)Math.Min(2, appearance.FrameGroup[0].SpriteInfo.PatternWidth - 1), (int)Math.Min(1, appearance.FrameGroup[0].SpriteInfo.PatternHeight - 1), 0, i);
+                    BitmapImage imageFrame = Utils.BitmapToBitmapImage(MainWindow.getSpriteStream((int)appearance.FrameGroup[0].SpriteInfo.SpriteId[index]));
+                    imageFrames.Add(imageFrame);
+                }
+            }
+            catch
+            {
+                MainWindow.Log("Error animation for sprite " + appearance.Id + ", crash prevented.");
+            }
+
+            if (imageControl == null) throw new ArgumentNullException(nameof(imageControl));
+            var animation = new ObjectAnimationUsingKeyFrames();
+            TimeSpan currentTime = TimeSpan.Zero;
+
+            foreach (BitmapImage imageFrame in imageFrames)
+            {
+                var keyFrame = new DiscreteObjectKeyFrame(imageFrame, currentTime);
+                animation.KeyFrames.Add(keyFrame);
+                currentTime += frameRate;
+            }
+
+            Storyboard.SetTarget(animation, imageControl);
+            Storyboard.SetTargetProperty(animation, new PropertyPath(Image.SourceProperty));
+
+            var storyboard = new Storyboard();
+            storyboard.Children.Add(animation);
+            storyboard.RepeatBehavior = RepeatBehavior.Forever;
+            storyboard.Begin();
+
+            return storyboard;
+        }
+        private void ItemShootType_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            int shootTypeId = (int)I_ShootType.Value;
+            try
+            {
+                if (shootTypeId > 0 && MainWindow.appearances.Missile.Any(a => a.Id == shootTypeId))
+                {
+                    var missile = MainWindow.appearances.Missile.FirstOrDefault(a => a.Id == shootTypeId);
+                    if (missile != null && missile.FrameGroup.Count > 0 && missile.FrameGroup[0].SpriteInfo.SpriteId.Count > 0)
+                        ShootTypeImage.Source = Utils.BitmapToBitmapImage(MainWindow.getSpriteStream((int)missile.FrameGroup[0].SpriteInfo.SpriteId[0]));
+                    else if (ShootTypeImage != null)
+                        ShootTypeImage.Source = null;
+                }
+                else if (ShootTypeImage != null)
+                    ShootTypeImage.Source = null;
+            }
+            catch (Exception)
+            {
+                MainWindow.Log("Invalid appearance properties for id " + shootTypeId + ", crash prevented.");
+            }
+        }
+        private void ItemEffectType_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            int effectTypeId = (int)I_EffectType.Value;
+            try
+            {
+                if (effectTypeId > 0 && MainWindow.appearances.Effect.Any(a => a.Id == effectTypeId))
+                {
+                    var effect = MainWindow.appearances.Effect.FirstOrDefault(a => a.Id == effectTypeId);
+                    if (effect != null)
+                        itemsXMLStoryboard = StartSingleSpriteAnimation(EffectTypeImage, effect);
+                }
+                else
+                {
+                    itemsXMLStoryboard?.Stop();
+                }
+            }
+            catch
+            {
+                MainWindow.Log("Invalid appearance properties for id " + effectTypeId + ", crash prevented.");
+            }
+        }
+
+        private void ItemRotateTo_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            // This will change the visible item based on the server ID
+        }
+
+        private void LoadItemsButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Load items from items.xml and items.otb
         }
     }
 }

@@ -8,26 +8,36 @@
         Title="Assets Editor" Height="350" Width="600"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         Style="{StaticResource MaterialDesignWindow}">
-    <Grid>
-        <Label Content="Assets Folder:" HorizontalAlignment="Left" Margin="42,50,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="AssetsPath" HorizontalAlignment="Left" Margin="135,50,0,0" VerticalAlignment="Top" Width="330" IsEnabled="False"/>
-        <Button Style="{StaticResource MaterialDesignIconButton}" materialDesign:RippleAssist.IsDisabled="True" Margin="468,37,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="55" Width="55" Click="SelectAssetsFolder">
-            <materialDesign:PackIcon  Kind="CardSearch" Height="40" Width="40" />
+    <Grid Background="Black" Margin="0,0,0,-16">
+        <Label Content="Assets Folder:" HorizontalAlignment="Left" Margin="42,42,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="AssetsPath" HorizontalAlignment="Center" Margin="0,41,0,0" VerticalAlignment="Top" Width="330" IsEnabled="False"/>
+        <Button Style="{StaticResource MaterialDesignIconButton}" materialDesign:RippleAssist.IsDisabled="True" Margin="468,26,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="55" Width="56" Click="SelectAssetsFolder">
+            <materialDesign:PackIcon  Kind="CardSearch" Height="40" Width="40" HorizontalAlignment="Center" />
         </Button>
-        <StackPanel Margin="159,92,0,0" HorizontalAlignment="Left" >
+        <StackPanel Margin="159,116,0,0" HorizontalAlignment="Left" >
             <Label Content="Objects:"/>
             <Label Content="Outfits:"/>
             <Label Content="Effects:"/>
             <Label Content="Missiles:"/>
             <CheckBox x:Name="SprTransparent" Content="Transparent" Visibility="Hidden"/>
         </StackPanel>
-        <StackPanel Margin="219,92,0,0" HorizontalAlignment="Left">
+        <StackPanel Margin="219,116,0,0" HorizontalAlignment="Left">
             <Label x:Name="ObjectsCount"/>
             <Label x:Name="OutfitsCount"/>
             <Label x:Name="EffectsCount"/>
             <Label x:Name="MissilesCount"/>
         </StackPanel>
-        <Button x:Name="LoadAssets" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,220,0,0" IsEnabled="False" Click="LoadAssets_Click" >
+        <StackPanel Margin="359,116,0,0" HorizontalAlignment="Left" >
+            <Label x:Name="OTBMajorVersionLabel" Content="OTB Major Version:" Visibility="Hidden"/>
+            <Label x:Name="OTBMinorVersionLabel" Content="OTB Minor Version:" Visibility="Hidden"/>
+            <Label x:Name="OTBClientVersionLabel" Content="OTB Client Version:" Visibility="Hidden"/>
+        </StackPanel>
+        <StackPanel Margin="468,116,0,0" HorizontalAlignment="Left">
+            <Label x:Name="OTBMajorVersion"/>
+            <Label x:Name="OTBMinorVersion"/>
+            <Label x:Name="OTBClientVersion"/>
+        </StackPanel>
+        <Button x:Name="LoadAssets" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,239,0,0" IsEnabled="False" Click="LoadAssets_Click" >
             <Button.Content>
                 <StackPanel>
                     <TextBlock Text="Load Assets" HorizontalAlignment="Center"/>
@@ -35,5 +45,11 @@
                 </StackPanel>
             </Button.Content>
         </Button>
+        <TextBox x:Name="Items_OTB_XML_Path" HorizontalAlignment="Center" Margin="0,80,0,0" VerticalAlignment="Top" Width="330" IsEnabled="False" Visibility="Hidden"/>
+        <Label x:Name="Items_OTB_XML_Path_Label" Content="OTB/Items.xml folder:" HorizontalAlignment="Left" Margin="1,80,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
+        <Button x:Name="Items_OTB_XML_Path_Button" Style="{StaticResource MaterialDesignIconButton}" materialDesign:RippleAssist.IsDisabled="True" Margin="468,64,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="55" Width="56" Visibility="Hidden" Click="SelectFolderForItemsXMLAndOTB">
+            <materialDesign:PackIcon  Kind="CardSearch" Height="40" Width="40" HorizontalAlignment="Center" />
+        </Button>
+        <CheckBox x:Name="LoadItemsXMLandOTB" Content="Load Items OTB/XML" HorizontalAlignment="Center" Margin="0,276,0,0" VerticalAlignment="Top" Foreground="White" Checked="LoadItemsXMLandOTBCheck" Unchecked="LoadItemsXMLandOTBCheck"/>
     </Grid>
 </Window>
