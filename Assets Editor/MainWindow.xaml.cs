@@ -15,7 +15,6 @@ using System.Collections.Concurrent;
 using System.ComponentModel;
 using System.Diagnostics;
 using static Assets_Editor.LogView;
-using static Assets_Editor.OTB;
 
 namespace Assets_Editor
 {
@@ -28,9 +27,6 @@ namespace Assets_Editor
         public static string _datPath = "";
         public static string _sprPath = "";
         public static string _itemsPath = "";
-        public static string _itemsXMLPath = "";
-        public static string _itemsOTBPath = "";
-        public static bool _loadItemsXMLandOTB = false;
 
         public static ushort ObjectCount { get; set; }
         public static ushort OutfitCount { get; set; }
@@ -196,25 +192,6 @@ namespace Assets_Editor
                 MessageBox.Show("You have selected a wrong assets path.");
         }
 
-        private void SelectFolderForItemsXMLAndOTB(object sender, RoutedEventArgs e)
-        {
-            FolderBrowserDialog _items = new FolderBrowserDialog();
-            if (_items.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                _itemsPath = _items.SelectedPath;
-                if (_itemsPath.EndsWith("\\") == false)
-                    _itemsPath += "\\";
-                Items_OTB_XML_Path.Text = _itemsPath;
-            }
-            if (_itemsPath != "" && File.Exists(_itemsPath + "items.xml") == true && File.Exists(_itemsPath + "items.otb") == true)
-            {
-                _itemsOTBPath = String.Format("{0}{1}", _itemsPath, "items.otb");
-                _itemsXMLPath = String.Format("{0}{1}", _itemsPath, "items.xml");
-               
-            }
-            else
-                MessageBox.Show("You have selected a wrong path for items.xml and items.otb.");
-        }
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
             if (LegacyClient == false)
@@ -242,11 +219,6 @@ namespace Assets_Editor
         }
         private void LoadAssets_Click(object sender, RoutedEventArgs e)
         {
-            if (LoadItemsXMLandOTB.IsChecked == true && _itemsOTBPath == "" && _itemsXMLPath == "")
-            {
-                MessageBox.Show("You have to select a folder for items.xml and items.otb.");
-                return;
-            }
             if (worker.IsBusy != true)
             {
                 worker.RunWorkerAsync();
@@ -358,27 +330,6 @@ namespace Assets_Editor
                 Message = message
             };
             logView.AddLogEntry(entry);
-        }
-
-        private void LoadItemsXMLandOTBCheck(object sender, RoutedEventArgs e)
-        {
-            if (LoadItemsXMLandOTB.IsChecked == true) {
-                Items_OTB_XML_Path.Visibility = Visibility.Visible;
-                Items_OTB_XML_Path_Label.Visibility = Visibility.Visible;
-                Items_OTB_XML_Path_Button.Visibility = Visibility.Visible;
-                OTBMajorVersionLabel.Visibility = Visibility.Visible;
-                OTBMinorVersionLabel.Visibility = Visibility.Visible;
-                OTBClientVersionLabel.Visibility = Visibility.Visible;
-                _loadItemsXMLandOTB = false;
-            } else {
-                Items_OTB_XML_Path.Visibility = Visibility.Hidden;
-                Items_OTB_XML_Path_Label.Visibility = Visibility.Hidden;
-                Items_OTB_XML_Path_Button.Visibility = Visibility.Hidden;
-                OTBMajorVersionLabel.Visibility = Visibility.Hidden;
-                OTBMinorVersionLabel.Visibility = Visibility.Hidden;
-                OTBClientVersionLabel.Visibility = Visibility.Hidden;
-                _loadItemsXMLandOTB = true;
-            }
         }
     }
 }

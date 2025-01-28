@@ -12,6 +12,8 @@ using System.Windows.Media.Imaging;
 using Tibia.Protobuf.Appearances;
 using static Assets_Editor.DatEditor;
 using static Assets_Editor.OTB;
+using static Assets_Editor.ItemsXMLReader;
+using static Assets_Editor.ItemManager;
 
 namespace Assets_Editor
 {
@@ -23,6 +25,8 @@ namespace Assets_Editor
         private dynamic _editor;
         private bool _legacy = false;
         private List<CatalogTransparency> transparentSheets = new List<CatalogTransparency>();
+        private string OTBFilePath;
+        private string XMLFilePath;
         private Storyboard itemsXMLStoryboard;
         public OTBEditor(dynamic editor, bool legacy)
         {
@@ -39,35 +43,151 @@ namespace Assets_Editor
         private uint ClientVersion;
         private void OpenOTBButton_Click(object sender, RoutedEventArgs e)
         {
-
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "OTB Files (*.otb)|*.otb";
-            if (openFileDialog.ShowDialog() == true)
+            OpenFileDialog openOTBFileDialog = new OpenFileDialog();
+            openOTBFileDialog.Filter = "OTB Files (*.otb)|*.otb";
+            if (openOTBFileDialog.ShowDialog() == true)
             {
                 appearanceByClientId.Clear();
                 ItemListView.ItemsSource = null;
-                OtbPathText.Text = openFileDialog.FileName;
-                string selectedFilePath = openFileDialog.FileName;
-                OTBReader otbReader = new OTBReader();
-                OTBItems = new List<ServerItem>();
-                bool stats = otbReader.Read(selectedFilePath);
-                if (stats == true)
-                {
-                    OTBLoaded = true;
-                    MajorVersion = otbReader.MajorVersion;
-                    MinorVersion = otbReader.MinorVersion;
-                    BuildNumber = otbReader.BuildNumber;
-                    ClientVersion = otbReader.ClientVersion;
-                    foreach (Appearance appearance in MainWindow.appearances.Object)
-                    {
-                        appearanceByClientId.Add(appearance.Id, appearance); // Replace '0' with the desired value for each Appearance key
-                    }
+                OtbPathText.Text = openOTBFileDialog.FileName;
+                OTBFilePath = openOTBFileDialog.FileName;
+            }
+        }
 
-                    foreach (var item in otbReader.Items)
-                    {
-                        OTBItems.Add(item);
-                        ItemListView.Items.Add(new ShowList() { Id = item.ServerId, Cid = item.ClientId });
-                    }
+        private void OpenXMLButton_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openXMLFileDialog = new OpenFileDialog();
+            openXMLFileDialog.Filter = "XML Files (*.xml)|*.xml";
+            if (openXMLFileDialog.ShowDialog() == true)
+            {
+                XmlPathText.Text = openXMLFileDialog.FileName;
+                XMLFilePath = openXMLFileDialog.FileName;
+            }
+        }
+
+        private void LoadItemsButton_Click(object sender, RoutedEventArgs e)
+        {
+            if ((OTBFilePath == null && XMLFilePath == null) || (OTBFilePath == null && XMLFilePath != null))
+            {
+                MessageBox.Show("You need to select an items.otb file.");
+                return;
+            }
+
+            // Load items from items.otb
+            OTBReader otbReader = new OTBReader();
+            OTBItems = new List<ServerItem>();
+            bool stats = otbReader.Read(OTBFilePath);
+            if (stats == true)
+            {
+                OTBLoaded = true;
+                MajorVersion = otbReader.MajorVersion;
+                MinorVersion = otbReader.MinorVersion;
+                BuildNumber = otbReader.BuildNumber;
+                ClientVersion = otbReader.ClientVersion;
+                foreach (Appearance appearance in MainWindow.appearances.Object)
+                {
+                    appearanceByClientId.Add(appearance.Id, appearance); // Replace '0' with the desired value for each Appearance key
+                }
+
+                foreach (var item in otbReader.Items)
+                {
+                    OTBItems.Add(item);
+                    ItemListView.Items.Add(new ShowList() { Id = item.ServerId, Cid = item.ClientId });
+                }
+            }
+
+            if (XMLFilePath != null)
+            {
+                // Load items from items.xml
+                ItemsXMLReader xmlReader = new ItemsXMLReader(); //TODO: implement reading items.xml
+                xmlReader.Read(XMLFilePath);
+                foreach (var XMLItem in xmlReader.Items)
+                {
+                    ServerItem item = OTBItems[XMLItem.ServerId];
+                    item.Name = XMLItem.Name; // note; this will change currently saved name
+                    item.Description = XMLItem.Description;
+                    item.SlotType = XMLItem.SlotType;
+                    item.WeaponType = XMLItem.WeaponType;
+                    item.CorpseType = XMLItem.CorpseType;
+                    item.FluidSource = XMLItem.FluidSource;
+                    item.FloorChange = XMLItem.FloorChange;
+                    item.ShowCount = XMLItem.ShowCount;
+                    item.ShowCharges = XMLItem.ShowCharges;
+                    item.ShowAttributes = XMLItem.ShowAttributes;
+                    item.ShowDuration = XMLItem.ShowDuration;
+                    item.StopDuration = XMLItem.StopDuration;
+                    item.Speed = XMLItem.Speed;
+                    item.Writeable = XMLItem.Writeable;
+                    item.SetPlayerInvisible = XMLItem.SetPlayerInvisible;
+                    item.MagicShield = XMLItem.MagicShield;
+                    item.Weight = XMLItem.Weight;
+                    item.Worth = XMLItem.Worth;
+                    item.Duration = XMLItem.Duration;
+                    item.DecayTo = XMLItem.DecayTo;
+                    item.EquipTo = XMLItem.EquipTo;
+                    item.DeEquipTo = XMLItem.DeEquipTo;
+                    item.WriteOnceItemID = XMLItem.WriteOnceItemID;
+                    item.Charges = XMLItem.Charges;
+                    item.RotateTo = XMLItem.RotateTo;
+                    item.ShootType = XMLItem.ShootType;
+                    item.EffectType = XMLItem.EffectType;
+                    item.Armor = XMLItem.Armor;
+                    item.Attack = XMLItem.Attack;
+                    item.Defense = XMLItem.Defense;
+                    item.ExtraDefense = XMLItem.ExtraDefense;
+                    item.AttackSpeed = XMLItem.AttackSpeed;
+                    item.Range = XMLItem.Range;
+                    item.Speed = XMLItem.Speed;
+                    item.IceAttack = XMLItem.IceAttack;
+                    item.EarthAttack = XMLItem.EarthAttack;
+                    item.FireAttack = XMLItem.FireAttack;
+                    item.EnergyAttack = XMLItem.EnergyAttack;
+                    item.DeathAttack = XMLItem.DeathAttack;
+                    item.HolyAttack = XMLItem.HolyAttack;
+                    item.MaxHP = XMLItem.MaxHP;
+                    item.MaxHPPercent = XMLItem.MaxHPPercent;
+                    item.MaxMP = XMLItem.MaxMP;
+                    item.MaxMPPercent = XMLItem.MaxMPPercent;
+                    item.HealthGain = XMLItem.HealthGain;
+                    item.ManaGain = XMLItem.ManaGain;
+                    item.HealthGainTicks = XMLItem.HealthGainTicks;
+                    item.ManaGainTicks = XMLItem.ManaGainTicks;
+                    item.CriticalChance = XMLItem.CriticalChance;
+                    item.CriticalAmount = XMLItem.CriticalAmount;
+                    item.ExtraMagicLevels = XMLItem.ExtraMagicLevels;
+                    item.ExtraMagicLevelsPercent = XMLItem.ExtraMagicLevelsPercent;
+                    item.ExtraSwordLevels = XMLItem.ExtraSwordLevels;
+                    item.ExtraSwordLevelsPercent = XMLItem.ExtraSwordLevelsPercent;
+                    item.ExtraAxeLevels = XMLItem.ExtraAxeLevels;
+                    item.ExtraAxeLevelsPercent = XMLItem.ExtraAxeLevelsPercent;
+                    item.ExtraClubLevels = XMLItem.ExtraClubLevels;
+                    item.ExtraClubLevelsPercent = XMLItem.ExtraClubLevelsPercent;
+                    item.ExtraDistanceLevels = XMLItem.ExtraDistanceLevels;
+                    item.ExtraDistanceLevelsPercent = XMLItem.ExtraDistanceLevelsPercent;
+                    item.ExtraShieldLevels = XMLItem.ExtraShieldLevels;
+                    item.ExtraShieldLevelsPercent = XMLItem.ExtraShieldLevelsPercent;
+                    item.ExtraFishingLevels = XMLItem.ExtraFishingLevels;
+                    item.ExtraFishingLevelsPercent = XMLItem.ExtraFishingLevelsPercent;
+                    item.ExtraFistLevels = XMLItem.ExtraFistLevels;
+                    item.ExtraFistLevelsPercent = XMLItem.ExtraFistLevelsPercent;
+                    item.AbsorbAllPercent = XMLItem.AbsorbAllPercent;
+                    item.AbsorbPhysicalPercent = XMLItem.AbsorbPhysicalPercent;
+                    item.AbsorbElemenetPercent = XMLItem.AbsorbElemenetPercent;
+                    item.AbsorbFirePercent = XMLItem.AbsorbFirePercent;
+                    item.AbsorbIcePercent = XMLItem.AbsorbIcePercent;
+                    item.AbsorbEarthPercent = XMLItem.AbsorbEarthPercent;
+                    item.AbsorbEnergyPercent = XMLItem.AbsorbEnergyPercent;
+                    item.AbsorbDeathPercent = XMLItem.AbsorbDeathPercent;
+                    item.AbsorbHolyPercent = XMLItem.AbsorbHolyPercent;
+                    item.AbsorbHealingPercent = XMLItem.AbsorbHealingPercent;
+                    item.AbsorbLifeDrainPercent = XMLItem.AbsorbLifeDrainPercent;
+                    item.AbsorbManaDrainPercent = XMLItem.AbsorbManaDrainPercent;
+                    item.EditorSuffix = XMLItem.EditorSuffix;
+                    item.PluralName = XMLItem.PluralName;
+                    item.ForceSerialize = XMLItem.ForceSerialize;
+                    item.HitChance = XMLItem.HitChance;
+                    item.MaxHitChance = XMLItem.MaxHitChance;
+                    item.RuneSpellName = XMLItem.RuneSpellName;
                 }
             }
         }
@@ -316,6 +436,20 @@ namespace Assets_Editor
             return index;
         }
 
+        private void EnableItemsXMLElements()
+        {
+            // Adding things to I_Type combobox
+            I_Type.Items.Add(new ComboBoxItem() { Content = "Key" });
+            I_Type.Items.Add(new ComboBoxItem() { Content = "Magic Field" });
+            I_Type.Items.Add(new ComboBoxItem() { Content = "Depot" });
+            I_Type.Items.Add(new ComboBoxItem() { Content = "Mailbox" });
+            I_Type.Items.Add(new ComboBoxItem() { Content = "Trashholder" });
+            I_Type.Items.Add(new ComboBoxItem() { Content = "Teleport" });
+            I_Type.Items.Add(new ComboBoxItem() { Content = "Door" });
+            I_Type.Items.Add(new ComboBoxItem() { Content = "Bed" });
+            I_Type.Items.Add(new ComboBoxItem() { Content = "Rune" });
+        }
+
         private Storyboard StartSingleSpriteAnimation(Image imageControl, Appearance appearance)
         {
             TimeSpan frameRate = TimeSpan.FromMilliseconds(200);
@@ -403,9 +537,39 @@ namespace Assets_Editor
             // This will change the visible item based on the server ID
         }
 
-        private void LoadItemsButton_Click(object sender, RoutedEventArgs e)
+        private void I_Type_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // Load items from items.xml and items.otb
+            ComboBox comboBox = sender as ComboBox;
+            if (comboBox != null)
+            {
+                ComboBoxItem selectedItem = comboBox.SelectedValue as ComboBoxItem;
+                if (selectedItem != null && (string)selectedItem.Content == "Container")
+                {
+                    if (I_ContainerSize != null)
+                        I_ContainerSize.Visibility = Visibility.Visible;
+                    if (I_ContainerSizeLabel != null)
+                        I_ContainerSizeLabel.Visibility = Visibility.Visible;
+
+                }
+                else if (selectedItem != null && (string)selectedItem.Content == "Rune")
+                {
+                    if (I_RuneName != null)
+                        I_RuneName.Visibility = Visibility.Visible;
+                    if (I_RuneNameLabel != null)
+                        I_RuneNameLabel.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    if (I_ContainerSize != null)
+                        I_ContainerSize.Visibility = Visibility.Collapsed;
+                    if (I_ContainerSizeLabel != null)
+                        I_ContainerSizeLabel.Visibility = Visibility.Collapsed;
+                    if (I_RuneName != null)
+                        I_RuneName.Visibility = Visibility.Collapsed;
+                    if (I_RuneNameLabel != null)
+                        I_RuneNameLabel.Visibility = Visibility.Collapsed;
+                }
+            }
         }
     }
 }

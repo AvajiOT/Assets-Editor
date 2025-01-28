@@ -27,16 +27,6 @@
             <Label x:Name="EffectsCount"/>
             <Label x:Name="MissilesCount"/>
         </StackPanel>
-        <StackPanel Margin="359,116,0,0" HorizontalAlignment="Left" >
-            <Label x:Name="OTBMajorVersionLabel" Content="OTB Major Version:" Visibility="Hidden"/>
-            <Label x:Name="OTBMinorVersionLabel" Content="OTB Minor Version:" Visibility="Hidden"/>
-            <Label x:Name="OTBClientVersionLabel" Content="OTB Client Version:" Visibility="Hidden"/>
-        </StackPanel>
-        <StackPanel Margin="468,116,0,0" HorizontalAlignment="Left">
-            <Label x:Name="OTBMajorVersion"/>
-            <Label x:Name="OTBMinorVersion"/>
-            <Label x:Name="OTBClientVersion"/>
-        </StackPanel>
         <Button x:Name="LoadAssets" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,239,0,0" IsEnabled="False" Click="LoadAssets_Click" >
             <Button.Content>
                 <StackPanel>
@@ -45,11 +35,5 @@
                 </StackPanel>
             </Button.Content>
         </Button>
-        <TextBox x:Name="Items_OTB_XML_Path" HorizontalAlignment="Center" Margin="0,80,0,0" VerticalAlignment="Top" Width="330" IsEnabled="False" Visibility="Hidden"/>
-        <Label x:Name="Items_OTB_XML_Path_Label" Content="OTB/Items.xml folder:" HorizontalAlignment="Left" Margin="1,80,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
-        <Button x:Name="Items_OTB_XML_Path_Button" Style="{StaticResource MaterialDesignIconButton}" materialDesign:RippleAssist.IsDisabled="True" Margin="468,64,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="55" Width="56" Visibility="Hidden" Click="SelectFolderForItemsXMLAndOTB">
-            <materialDesign:PackIcon  Kind="CardSearch" Height="40" Width="40" HorizontalAlignment="Center" />
-        </Button>
-        <CheckBox x:Name="LoadItemsXMLandOTB" Content="Load Items OTB/XML" HorizontalAlignment="Center" Margin="0,276,0,0" VerticalAlignment="Top" Foreground="White" Checked="LoadItemsXMLandOTBCheck" Unchecked="LoadItemsXMLandOTBCheck"/>
-    </Grid>
+ </Grid>
 </Window>
