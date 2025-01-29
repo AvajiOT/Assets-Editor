@@ -28,6 +28,7 @@ namespace Assets_Editor
         private string OTBFilePath;
         private string XMLFilePath;
         private Storyboard itemsXMLStoryboard;
+        public bool ItemsXMLLoaded = false;
         public OTBEditor(dynamic editor, bool legacy)
         {
             InitializeComponent();
@@ -99,95 +100,64 @@ namespace Assets_Editor
             if (XMLFilePath != null)
             {
                 // Load items from items.xml
-                ItemsXMLReader xmlReader = new ItemsXMLReader(); //TODO: implement reading items.xml
+                // TODO: ensure that the legacydateditor actually works
+                ItemsXMLLoaded = true;
+                EnableItemsXMLElements();
+                ItemsXMLReader xmlReader = new ItemsXMLReader();
                 xmlReader.Read(XMLFilePath);
+
                 foreach (var XMLItem in xmlReader.Items)
                 {
-                    ServerItem item = OTBItems[XMLItem.ServerId];
-                    item.Name = XMLItem.Name; // note; this will change currently saved name
-                    item.Description = XMLItem.Description;
-                    item.SlotType = XMLItem.SlotType;
-                    item.WeaponType = XMLItem.WeaponType;
-                    item.CorpseType = XMLItem.CorpseType;
-                    item.FluidSource = XMLItem.FluidSource;
-                    item.FloorChange = XMLItem.FloorChange;
-                    item.ShowCount = XMLItem.ShowCount;
-                    item.ShowCharges = XMLItem.ShowCharges;
-                    item.ShowAttributes = XMLItem.ShowAttributes;
-                    item.ShowDuration = XMLItem.ShowDuration;
-                    item.StopDuration = XMLItem.StopDuration;
-                    item.Speed = XMLItem.Speed;
-                    item.Writeable = XMLItem.Writeable;
-                    item.SetPlayerInvisible = XMLItem.SetPlayerInvisible;
-                    item.MagicShield = XMLItem.MagicShield;
-                    item.Weight = XMLItem.Weight;
-                    item.Worth = XMLItem.Worth;
-                    item.Duration = XMLItem.Duration;
-                    item.DecayTo = XMLItem.DecayTo;
-                    item.EquipTo = XMLItem.EquipTo;
-                    item.DeEquipTo = XMLItem.DeEquipTo;
-                    item.WriteOnceItemID = XMLItem.WriteOnceItemID;
-                    item.Charges = XMLItem.Charges;
-                    item.RotateTo = XMLItem.RotateTo;
-                    item.ShootType = XMLItem.ShootType;
-                    item.EffectType = XMLItem.EffectType;
-                    item.Armor = XMLItem.Armor;
-                    item.Attack = XMLItem.Attack;
-                    item.Defense = XMLItem.Defense;
-                    item.ExtraDefense = XMLItem.ExtraDefense;
-                    item.AttackSpeed = XMLItem.AttackSpeed;
-                    item.Range = XMLItem.Range;
-                    item.Speed = XMLItem.Speed;
-                    item.IceAttack = XMLItem.IceAttack;
-                    item.EarthAttack = XMLItem.EarthAttack;
-                    item.FireAttack = XMLItem.FireAttack;
-                    item.EnergyAttack = XMLItem.EnergyAttack;
-                    item.DeathAttack = XMLItem.DeathAttack;
-                    item.HolyAttack = XMLItem.HolyAttack;
-                    item.MaxHP = XMLItem.MaxHP;
-                    item.MaxHPPercent = XMLItem.MaxHPPercent;
-                    item.MaxMP = XMLItem.MaxMP;
-                    item.MaxMPPercent = XMLItem.MaxMPPercent;
-                    item.HealthGain = XMLItem.HealthGain;
-                    item.ManaGain = XMLItem.ManaGain;
-                    item.HealthGainTicks = XMLItem.HealthGainTicks;
-                    item.ManaGainTicks = XMLItem.ManaGainTicks;
-                    item.CriticalChance = XMLItem.CriticalChance;
-                    item.CriticalAmount = XMLItem.CriticalAmount;
-                    item.ExtraMagicLevels = XMLItem.ExtraMagicLevels;
-                    item.ExtraMagicLevelsPercent = XMLItem.ExtraMagicLevelsPercent;
-                    item.ExtraSwordLevels = XMLItem.ExtraSwordLevels;
-                    item.ExtraSwordLevelsPercent = XMLItem.ExtraSwordLevelsPercent;
-                    item.ExtraAxeLevels = XMLItem.ExtraAxeLevels;
-                    item.ExtraAxeLevelsPercent = XMLItem.ExtraAxeLevelsPercent;
-                    item.ExtraClubLevels = XMLItem.ExtraClubLevels;
-                    item.ExtraClubLevelsPercent = XMLItem.ExtraClubLevelsPercent;
-                    item.ExtraDistanceLevels = XMLItem.ExtraDistanceLevels;
-                    item.ExtraDistanceLevelsPercent = XMLItem.ExtraDistanceLevelsPercent;
-                    item.ExtraShieldLevels = XMLItem.ExtraShieldLevels;
-                    item.ExtraShieldLevelsPercent = XMLItem.ExtraShieldLevelsPercent;
-                    item.ExtraFishingLevels = XMLItem.ExtraFishingLevels;
-                    item.ExtraFishingLevelsPercent = XMLItem.ExtraFishingLevelsPercent;
-                    item.ExtraFistLevels = XMLItem.ExtraFistLevels;
-                    item.ExtraFistLevelsPercent = XMLItem.ExtraFistLevelsPercent;
-                    item.AbsorbAllPercent = XMLItem.AbsorbAllPercent;
-                    item.AbsorbPhysicalPercent = XMLItem.AbsorbPhysicalPercent;
-                    item.AbsorbElemenetPercent = XMLItem.AbsorbElemenetPercent;
-                    item.AbsorbFirePercent = XMLItem.AbsorbFirePercent;
-                    item.AbsorbIcePercent = XMLItem.AbsorbIcePercent;
-                    item.AbsorbEarthPercent = XMLItem.AbsorbEarthPercent;
-                    item.AbsorbEnergyPercent = XMLItem.AbsorbEnergyPercent;
-                    item.AbsorbDeathPercent = XMLItem.AbsorbDeathPercent;
-                    item.AbsorbHolyPercent = XMLItem.AbsorbHolyPercent;
-                    item.AbsorbHealingPercent = XMLItem.AbsorbHealingPercent;
-                    item.AbsorbLifeDrainPercent = XMLItem.AbsorbLifeDrainPercent;
-                    item.AbsorbManaDrainPercent = XMLItem.AbsorbManaDrainPercent;
-                    item.EditorSuffix = XMLItem.EditorSuffix;
-                    item.PluralName = XMLItem.PluralName;
-                    item.ForceSerialize = XMLItem.ForceSerialize;
-                    item.HitChance = XMLItem.HitChance;
-                    item.MaxHitChance = XMLItem.MaxHitChance;
-                    item.RuneSpellName = XMLItem.RuneSpellName;
+                    if (OTBItems.Any(item => item.ServerId == XMLItem.ServerId))
+                    {
+                        ServerItem item = OTBItems.First(item => item.ServerId == XMLItem.ServerId);
+
+                        foreach (var property in typeof(ServerItem).GetProperties())
+                        {
+                            var xmlValue = property.GetValue(XMLItem);
+
+                            // Skip if the XML value is null
+                            if (xmlValue == null)
+                                continue;
+
+                            // Handle different property types
+                            if (property.PropertyType == typeof(string))
+                            {
+                                // Only update if the string is not empty or whitespace
+                                if (!string.IsNullOrWhiteSpace((string)xmlValue))
+                                {
+                                    property.SetValue(item, xmlValue);
+                                }
+                            }
+                            else if (property.PropertyType == typeof(List<Attribute>) || property.PropertyType.IsGenericType)
+                            {
+                                // For lists, only update if the list has items
+                                var list = xmlValue as System.Collections.IList;
+                                if (list != null && list.Count > 0)
+                                {
+                                    property.SetValue(item, xmlValue);
+                                }
+                            }
+                            else if (property.PropertyType.IsValueType)
+                            {
+                                // For value types (int, bool, etc.), only update if different from default
+                                var defaultValue = Activator.CreateInstance(property.PropertyType);
+                                if (!xmlValue.Equals(defaultValue))
+                                {
+                                    property.SetValue(item, xmlValue);
+                                }
+                            }
+                            else
+                            {
+                                // For other types, only update if the value is different
+                                var currentValue = property.GetValue(item);
+                                if (!Equals(currentValue, xmlValue))
+                                {
+                                    property.SetValue(item, xmlValue);
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -195,6 +165,36 @@ namespace Assets_Editor
         private void ItemListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ServerItem item = OTBItems[ItemListView.SelectedIndex];
+            if (ItemsXMLLoaded)
+            {
+                //TODO: finish loading all the values
+                I_ContainerSize.Value = item.ContainerSize;
+                I_Article.Text = item.Article;
+                I_Desc.Text = item.Description;
+                //I_SlotType.SelectedIndex = (int)item.SlotType;
+                I_RuneName.Text = item.RuneSpellName;
+                I_ShootType.Value = item.ShootType;
+                I_EffectType.Value = item.EffectType;
+                I_RotateTo.Value = item.RotateTo;
+                I_WeaponType.SelectedIndex = (int)item.WeaponType;
+                I_ShowCount.IsChecked = item.ShowCount;
+                I_ShowDuration.IsChecked = item.ShowDuration;
+                I_StopDuration.IsChecked = item.StopDuration;
+                I_Writeable.IsChecked = item.Writeable;
+                I_ForceSerialize.IsChecked = item.ForceSerialize;
+                I_MagicShield.IsChecked = item.MagicShield;
+                I_PlayerInvisible.IsChecked = item.SetPlayerInvisible;
+                I_Weight.Value = item.Weight;
+                I_Worth.Value = item.Worth;
+                I_Duration.Value = item.Duration;
+                I_DecayTo.Value = item.DecayTo;
+                I_TransformEquipTo.Value = item.EquipTo;
+                I_TransformDeEquipTo.Value = item.DeEquipTo;
+                I_CorpseType.SelectedIndex = (int)item.CorpseType;
+                I_FluidSource.SelectedIndex = (int)item.FluidSource;
+                I_RotateTo.Value = item.RotateTo;
+                I_ShootType.Value = item.ShootType;
+            }
             I_ServerId.Value = item.ServerId;
             I_ClientId.Value = item.ClientId;
             I_Name.Text = item.Name;
@@ -202,7 +202,7 @@ namespace Assets_Editor
             I_Type.SelectedIndex = (int)item.Type;
             I_GroundSpeed.Value = item.GroundSpeed;
             I_Unpassable.IsChecked = item.Unpassable;
-            I_Movable.IsChecked = item.Movable;
+            I_Movable.IsChecked = item.Movable; //TODO: investigate why this is always showing
             I_BlockMissiles.IsChecked = item.BlockMissiles;
             I_BlockPath.IsChecked = item.BlockPathfinder;
             I_Pickable.IsChecked = item.Pickupable;
@@ -391,6 +391,7 @@ namespace Assets_Editor
 
         private void SaveItemButton_Click(object sender, RoutedEventArgs e)
         {
+            //TODO: finish saving properly
             ServerItem item = OTBItems[ItemListView.SelectedIndex];
             item.ServerId = (ushort)I_ServerId.Value;
             item.ClientId = (ushort)I_ClientId.Value;
@@ -438,6 +439,7 @@ namespace Assets_Editor
 
         private void EnableItemsXMLElements()
         {
+            //TODO: add the rest of items.xml specific values and switch in the XAML to collapse the visibility
             // Adding things to I_Type combobox
             I_Type.Items.Add(new ComboBoxItem() { Content = "Key" });
             I_Type.Items.Add(new ComboBoxItem() { Content = "Magic Field" });
@@ -448,6 +450,8 @@ namespace Assets_Editor
             I_Type.Items.Add(new ComboBoxItem() { Content = "Door" });
             I_Type.Items.Add(new ComboBoxItem() { Content = "Bed" });
             I_Type.Items.Add(new ComboBoxItem() { Content = "Rune" });
+            //Switching I_Pickable to three states
+            I_Pickable.IsThreeState = true;
         }
 
         private Storyboard StartSingleSpriteAnimation(Image imageControl, Appearance appearance)

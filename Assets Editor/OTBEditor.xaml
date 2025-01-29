@@ -109,9 +109,9 @@
                     <Rectangle Fill="Gray" Height="1" Margin="0,5,0,10" />
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left">
                         <Label Content="Server Id:" HorizontalAlignment="Left" VerticalAlignment="Center" Width="110" />
-                        <xctk:IntegerUpDown x:Name="I_ServerId" Width="110" Minimum="0" Maximum="1000" />
+                        <xctk:LongUpDown x:Name="I_ServerId" Width="110"   />
                         <Label Content="Client Id:" HorizontalAlignment="Left" VerticalAlignment="Center" Width="110"/>
-                        <xctk:IntegerUpDown x:Name="I_ClientId" Width="110" Minimum="0" Maximum="1000" />
+                        <xctk:LongUpDown x:Name="I_ClientId" Width="110"   />
                     </WrapPanel>
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,5,0,0">
                         <Label Content="Name:" HorizontalAlignment="Left" VerticalAlignment="Center" Width="110"/>
@@ -137,7 +137,7 @@
                             <ComboBoxItem Content="Top"/>
                         </ComboBox>
                         <Label Content="Ground Speed:" HorizontalAlignment="Left" VerticalAlignment="Center" Width="110" />
-                        <xctk:IntegerUpDown x:Name="I_GroundSpeed" Minimum="0" Maximum="1000" Width="110"/>
+                        <xctk:LongUpDown x:Name="I_GroundSpeed"   Width="110"/>
                     </WrapPanel>
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,5,0,0">
                         <Label Content="Item Type:" HorizontalAlignment="Left" VerticalAlignment="Center" Width="110" />
@@ -151,7 +151,7 @@
                             <ComboBoxItem Content="Podium"/>
                         </ComboBox>
                         <Label x:Name="I_ContainerSizeLabel" Content="Container Size:" Width="110" HorizontalAlignment="Left" VerticalAlignment="Center" Visibility="Collapsed"/>
-                        <xctk:IntegerUpDown x:Name="I_ContainerSize" Width="110" DefaultValue="0" Minimum="0" Visibility="Collapsed" />
+                        <xctk:LongUpDown x:Name="I_ContainerSize" Width="110" DefaultValue="0"  Visibility="Collapsed" />
                         <Label x:Name="I_RuneNameLabel" Content="Rune Spell Name:" Width="110" HorizontalAlignment="Left" VerticalAlignment="Center" Visibility="Collapsed"/>
                         <TextBox x:Name="I_RuneName" Width="110" Visibility="Collapsed" />
                     </WrapPanel>
@@ -192,7 +192,7 @@
                         <CheckBox x:Name="I_BlockPath" Content="Block Path" Width="110"/>
                     </WrapPanel>
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,5,0,0">
-                        <CheckBox x:Name="I_Pickable" Content="Pickable" Width="110" IsThreeState="True"/>
+                        <CheckBox x:Name="I_Pickable" Content="Pickable" Width="110" IsThreeState="False"/>
                         <CheckBox x:Name="I_Stackable" Content="Stackable" Width="110"/>
                         <CheckBox x:Name="I_ForceUse" Content="Force Use" Width="110"/>
                         <CheckBox x:Name="I_MultiUse" Content="Multi Use" Width="110"/>
@@ -213,61 +213,59 @@
                         <CheckBox x:Name="I_ShowCount" Content="Show Count" Width="110"/>
                         <CheckBox x:Name="I_ShowDuration" Content="Show Duration" Width="110" />
                         <CheckBox x:Name="I_StopDuration" Content="Stop Duration" Width="110" ToolTip="If checked, the item will stop decay when another item is set to this ID"/>
-                        <CheckBox x:Name="I_Writable" Content="Writeable" Width="110" />
+                        <CheckBox x:Name="I_Writeable" Content="Writeable" Width="110" />
                     </WrapPanel>
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,5,0,0">
-                        <CheckBox x:Name="I_BlockProjectiles" Content="Block Projectiles" Width="110" />
-                        <CheckBox x:Name="I_Moveable" Content="Moveable" Width="110" />
                         <CheckBox x:Name="I_ShowAttributes" Content="Show Attributes" Width="110" />
                         <CheckBox x:Name="I_ForceSerialize" Content="Force Serialize" Width="110"/>
+                        <CheckBox x:Name="I_MagicShield" Content="Magic Shield" Width="110"/>
                     </WrapPanel>
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,5,0,0">
                         <CheckBox x:Name="I_PlayerInvisible" Content="Turn Player Invisible When Equipped" Width="220"/>
-                        <CheckBox x:Name="I_MagicShield" Content="Magic Shield" Width="110"/>
                     </WrapPanel>
                     <Separator Margin="0,5,0,5"/>
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,5,0,0">
                         <Label Content="MiniMap Color:" HorizontalAlignment="Left" VerticalAlignment="Center" Width="110" />
-                        <xctk:IntegerUpDown x:Name="I_MiniMapColor" Width="110" Minimum="0" Maximum="1000" />
+                        <xctk:LongUpDown x:Name="I_MiniMapColor" Width="110"   />
                         <Label Content="Show As:" HorizontalAlignment="Left" VerticalAlignment="Center" Width="110" />
-                        <xctk:IntegerUpDown x:Name="I_ShowAs" Width="110" Minimum="0" Maximum="1000" />
+                        <xctk:LongUpDown x:Name="I_ShowAs" Width="110"   />
                     </WrapPanel>
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,5,0,0">
                         <Label Content="Light Level:" HorizontalAlignment="Left" VerticalAlignment="Center" Width="110" />
-                        <xctk:IntegerUpDown x:Name="I_LightLevel" Width="110" Minimum="0" Maximum="1000" />
+                        <xctk:LongUpDown x:Name="I_LightLevel" Width="110"   />
                         <Label Content="Light Color:" HorizontalAlignment="Left" VerticalAlignment="Center" Width="110" />
-                        <xctk:IntegerUpDown x:Name="I_LightColor" Width="110" Minimum="0" Maximum="1000" />
+                        <xctk:LongUpDown x:Name="I_LightColor" Width="110"   />
                     </WrapPanel>
                     <!-- Currently collapsed as this was not being read in TFS -->
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,5,0,0" Visibility="Collapsed">
                         <Label Content="Max ReadWrite:" HorizontalAlignment="Left" VerticalAlignment="Center" Width="110" />
-                        <xctk:IntegerUpDown x:Name="I_MaxReadWriteChars" Width="110" Minimum="0" Maximum="1000" />
+                        <xctk:LongUpDown x:Name="I_MaxReadWriteChars" Width="110"   />
                         <Label Content="Max Read:" HorizontalAlignment="Left" VerticalAlignment="Center" Width="110" />
-                        <xctk:IntegerUpDown x:Name="I_MaxReadChars" Width="110" Minimum="0" Maximum="1000" />
+                        <xctk:LongUpDown x:Name="I_MaxReadChars" Width="110"   />
                     </WrapPanel>
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,5,0,0">
                         <Label Content="Item Weight:" Width="110" HorizontalAlignment="Left" VerticalAlignment="Center" ToolTip="This will be the item's weight in #/100 oz, 1 will be 0.01 oz, 100 will be 1 oz"/>
-                        <xctk:IntegerUpDown x:Name="I_Weight" Width="110" DefaultValue="0" Minimum="0" ToolTip="This will be the item's weight in #/100 oz, 1 will be 0.01 oz, 100 will be 1 oz"/>
+                        <xctk:LongUpDown x:Name="I_Weight" Width="110" DefaultValue="0"  ToolTip="This will be the item's weight in #/100 oz, 1 will be 0.01 oz, 100 will be 1 oz"/>
                         <Label Content="Item Worth:" Width="110" HorizontalAlignment="Left" VerticalAlignment="Center" ToolTip="This is used for currency only"/>
-                        <xctk:IntegerUpDown x:Name="I_Worth" Width="110" DefaultValue="0" Minimum="0" ToolTip="This is used for currency only"/>
+                        <xctk:LongUpDown x:Name="I_Worth" Width="110" DefaultValue="0"  ToolTip="This is used for currency only"/>
                     </WrapPanel>
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,5,0,0">
                         <Label Content="Duration:" Width="110"  HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_Duration" Width="110" DefaultValue="0" Minimum="0" />
+                        <xctk:LongUpDown x:Name="I_Duration" Width="110" DefaultValue="0"  />
                         <Label Content="Decay To:" Width="110" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_DecayTo" Width="110" DefaultValue="0" Minimum="0" />
+                        <xctk:LongUpDown x:Name="I_DecayTo" Width="110" DefaultValue="0"  />
                     </WrapPanel>
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,5,0,0">
                         <Label Content="Equip To:" Width="110" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_TransformEquipTo" Width="110" DefaultValue="0" Minimum="0" ToolTip="If this is filled, the item will transform to this ID when equipped WARNING: Fill only Equip To or DeEquipTo!"/>
+                        <xctk:LongUpDown x:Name="I_TransformEquipTo" Width="110" DefaultValue="0"  ToolTip="If this is filled, the item will transform to this ID when equipped WARNING: Fill only Equip To or DeEquipTo!"/>
                         <Label Content="DeEquip To:" Width="110" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_TransformDeEquipTo" Width="110" DefaultValue="0" Minimum="0" ToolTip="If this is filled, the item will transform to this ID when de equipped WARNING: Fill only Equip To or DeEquipTo!"/>
+                        <xctk:LongUpDown x:Name="I_TransformDeEquipTo" Width="110" DefaultValue="0"  ToolTip="If this is filled, the item will transform to this ID when de equipped WARNING: Fill only Equip To or DeEquipTo!"/>
                     </WrapPanel>
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,5,0,0">
                         <Label Content="Max Text Length:" Width="110" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_MaxTextLen" Width="110" DefaultValue="0" Minimum="0"/>
+                        <xctk:LongUpDown x:Name="I_MaxTextLen" Width="110" DefaultValue="0" />
                         <Label Content="WriteOnce ItemID:" Width="110" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_WriteOnceItemId" Width="110" DefaultValue="0" Minimum="0" ToolTip="If this is filled, the item will transform to this ID when written"/>
+                        <xctk:LongUpDown x:Name="I_WriteOnceItemId" Width="110" DefaultValue="0"  ToolTip="If this is filled, the item will transform to this ID when written"/>
                     </WrapPanel>
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,5,0,0">
                         <Label Content="Corpse Type:" Width="110" HorizontalAlignment="Left" VerticalAlignment="Center" />
@@ -283,23 +281,26 @@
                         <Label Content="Fluid Source:" Width="110" HorizontalAlignment="Left" VerticalAlignment="Center" />
                         <ComboBox x:Name="I_FluidSource" Width="110" BorderThickness="1,1,1,1" SelectedIndex="0" Padding="6,1,5,3">
                             <ComboBoxItem Content="None"/>
+                            <ComboBoxItem Content="Water"/>
                             <ComboBoxItem Content="Blood"/>
+                            <ComboBoxItem Content="Beer"/>
                             <ComboBoxItem Content="Slime"/>
                             <ComboBoxItem Content="Lemonade"/>
-                            <ComboBoxItem Content="Beer"/>
-                            <ComboBoxItem Content="Rum"/>
-                            <ComboBoxItem Content="Wine"/>
-                            <ComboBoxItem Content="Mead"/>
-                            <ComboBoxItem Content="Tea"/>
-                            <ComboBoxItem Content="Ink"/>
-                            <ComboBoxItem Content="Life"/>
+                            <ComboBoxItem Content="Milk"/>
                             <ComboBoxItem Content="Mana"/>
-                            <ComboBoxItem Content="Fruitjuice"/>
-                            <ComboBoxItem Content="Mud"/>
-                            <ComboBoxItem Content="Lava"/>
-                            <ComboBoxItem Content="Swamp"/>
-                            <ComboBoxItem Content="Cocunt"/>
+                            <ComboBoxItem Content="Life"/>
+                            <ComboBoxItem Content="Oil"/>
                             <ComboBoxItem Content="Urine"/>
+                            <ComboBoxItem Content="Coconut"/>
+                            <ComboBoxItem Content="Wine"/>
+                            <ComboBoxItem Content="Mud"/>
+                            <ComboBoxItem Content="FruitJuice"/>
+                            <ComboBoxItem Content="Lava"/>
+                            <ComboBoxItem Content="Rum"/>
+                            <ComboBoxItem Content="Swamp"/>
+                            <ComboBoxItem Content="Tea"/>
+                            <ComboBoxItem Content="Mead"/>
+                            <ComboBoxItem Content="Ink"/>
                         </ComboBox>
                     </WrapPanel>
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,5,0,0">
@@ -318,204 +319,204 @@
                     <Separator Margin="0,5,0,5"/>
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,5,0,0">
                         <Label Content="Rotate To:" Width="110" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_RotateTo" Width="110" DefaultValue="0" Minimum="0" Height="25" ToolTip="This must be a SERVER ID" ValueChanged="ItemRotateTo_ValueChanged"/>
+                        <xctk:LongUpDown x:Name="I_RotateTo" Width="110" DefaultValue="0"  Height="25" ToolTip="This must be a SERVER ID" ValueChanged="ItemRotateTo_ValueChanged"/>
                         <Image x:Name="RotateToImage" Source="{Binding Image}" Stretch="None" RenderOptions.BitmapScalingMode="NearestNeighbor" VerticalAlignment="Bottom" />
                     </WrapPanel>
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,5,0,0">
                         <Label Content="Shoot Type:" Width="110" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
-                        <xctk:IntegerUpDown x:Name="I_ShootType"  Width="110" DefaultValue="0" Minimum="0" Height="25" VerticalAlignment="Bottom"  ValueChanged="ItemShootType_ValueChanged"/>
+                        <xctk:LongUpDown x:Name="I_ShootType"  Width="110" DefaultValue="0"  Height="25" VerticalAlignment="Bottom"  ValueChanged="ItemShootType_ValueChanged"/>
                         <Image x:Name="ShootTypeImage" Source="{Binding Image}" Stretch="None" RenderOptions.BitmapScalingMode="NearestNeighbor" VerticalAlignment="Bottom" Height="64"/>
                     </WrapPanel>
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,5,0,0">
                         <Label Content="Effect Type:" Width="110" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
-                        <xctk:IntegerUpDown x:Name="I_EffectType"  Width="110" DefaultValue="0" Minimum="0" Height="25" VerticalAlignment="Bottom"  ValueChanged="ItemEffectType_ValueChanged"/>
+                        <xctk:LongUpDown x:Name="I_EffectType"  Width="110" DefaultValue="0"  Height="25" VerticalAlignment="Bottom"  ValueChanged="ItemEffectType_ValueChanged"/>
                         <Image x:Name="EffectTypeImage" Source="{Binding Image}" Stretch="None" RenderOptions.BitmapScalingMode="NearestNeighbor" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="64"/>
                     </WrapPanel>
                     <Separator Margin="0,5,0,5"/>
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,5,0,0">
                         <Label Content="Armour:" Width="110" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_Armour" Width="110" DefaultValue="0" Minimum="0" />
+                        <xctk:LongUpDown x:Name="I_Armour" Width="110" DefaultValue="0"  />
                         <Label Content="Attack:" Width="110" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_Attack" Width="110" DefaultValue="0" Minimum="0" />
+                        <xctk:LongUpDown x:Name="I_Attack" Width="110" DefaultValue="0"  />
                     </WrapPanel>
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,5,0,0">
                         <Label Content="Hit Chance:" Width="110" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_HitChance" Width="110" DefaultValue="0" Minimum="0" />
+                        <xctk:LongUpDown x:Name="I_HitChance" Width="110" DefaultValue="0"  />
                         <Label Content="Max Hit Chance:" Width="110" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_MaxHitChance" Width="110" DefaultValue="0" Minimum="0" />
+                        <xctk:LongUpDown x:Name="I_MaxHitChance" Width="110" DefaultValue="0"  />
                     </WrapPanel>
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,5,0,0">
                         <Label Content="Defense:" Width="110" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_Defense" Width="110" DefaultValue="0" Minimum="0" />
+                        <xctk:LongUpDown x:Name="I_Defense" Width="110" DefaultValue="0"  />
                         <Label Content="Extra Defense:" Width="110" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_ExtraDefense" Width="110" DefaultValue="0"/>
+                        <xctk:LongUpDown x:Name="I_ExtraDefense" Width="110" DefaultValue="0"/>
                     </WrapPanel>
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,5,0,0">
                         <Label Content="Attack Speed:" Width="110" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_AttackSpeed" Width="110" DefaultValue="0" Minimum="0" />
+                        <xctk:LongUpDown x:Name="I_AttackSpeed" Width="110" DefaultValue="0"  />
                         <Label Content="Range:" Width="110"  HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_Range" Width="110" DefaultValue="0" Minimum="0" />
+                        <xctk:LongUpDown x:Name="I_Range" Width="110" DefaultValue="0"  />
                     </WrapPanel>
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,5,0,0">
                         <Label Content="Speed:" Width="110" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_Speed" Width="110" DefaultValue="0" Minimum="0" />
+                        <xctk:LongUpDown x:Name="I_Speed" Width="110" DefaultValue="0"  />
                     </WrapPanel>
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,5,0,0">
                         <Label Content="Ice Attack:" Width="110" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_IceAttack" Width="110" DefaultValue="0" Minimum="0" />
+                        <xctk:LongUpDown x:Name="I_IceAttack" Width="110" DefaultValue="0"  />
                         <Label Content="Earth Attack:" Width="110" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_EarthAttack" Width="110" DefaultValue="0" Minimum="0" />
+                        <xctk:LongUpDown x:Name="I_EarthAttack" Width="110" DefaultValue="0"  />
                     </WrapPanel>
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,5,0,0">
                         <Label Content="Fire Attack:" Width="110"  HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_FireAttack" Width="110" DefaultValue="0" Minimum="0" />
+                        <xctk:LongUpDown x:Name="I_FireAttack" Width="110" DefaultValue="0"  />
                         <Label Content="Energy Attack:" Width="110" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_EnergyAttack" Width="110" DefaultValue="0" Minimum="0" />
+                        <xctk:LongUpDown x:Name="I_EnergyAttack" Width="110" DefaultValue="0"  />
                     </WrapPanel>
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,5,0,0">
                         <Label Content="Death Attack:" Width="110" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_DeathAttack"  Width="110" DefaultValue="0" Minimum="0" />
+                        <xctk:LongUpDown x:Name="I_DeathAttack"  Width="110" DefaultValue="0"  />
                         <Label Content="Holy Attack:" Width="110" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_HolyAttack" Width="110" DefaultValue="0" Minimum="0" />
+                        <xctk:LongUpDown x:Name="I_HolyAttack" Width="110" DefaultValue="0"  />
                     </WrapPanel>
                     <Separator Margin="0,5,0,5"/>
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,5,0,0">
                         <Label Content="Max HP:" Width="110" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_MaxHealth" Width="110" DefaultValue="0"/>
+                        <xctk:LongUpDown x:Name="I_MaxHealth" Width="110" DefaultValue="0"/>
                         <Label Content="Max HP %:" Width="110" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_MaxHealthPercent" Width="110" DefaultValue="0"/>
+                        <xctk:LongUpDown x:Name="I_MaxHealthPercent" Width="110" DefaultValue="0"/>
                     </WrapPanel>
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,5,0,0">
                         <Label Content="Health Gain:" Width="110" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_HealthGain" Width="110" DefaultValue="0"/>
+                        <xctk:LongUpDown x:Name="I_HealthGain" Width="110" DefaultValue="0"/>
                         <Label Content="Health Gain Ticks:" Width="110" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_HealthGainticks" Width="110" DefaultValue="0"/>
+                        <xctk:LongUpDown x:Name="I_HealthGainticks" Width="110" DefaultValue="0"/>
                     </WrapPanel>
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,5,0,0">
                         <Label Content="Max MP:" Width="110" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_MaxMana" Width="110" DefaultValue="0"/>
+                        <xctk:LongUpDown x:Name="I_MaxMana" Width="110" DefaultValue="0"/>
                         <Label Content="Max HP %:" Width="110" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_MaxManaPercent" Width="110" DefaultValue="0"/>
+                        <xctk:LongUpDown x:Name="I_MaxManaPercent" Width="110" DefaultValue="0"/>
                     </WrapPanel>
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,5,0,0">
                         <Label Content="Mana Gain:" Width="110" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_ManaGain" Width="110" DefaultValue="0"/>
+                        <xctk:LongUpDown x:Name="I_ManaGain" Width="110" DefaultValue="0"/>
                         <Label Content="Mana Gain Ticks:" Width="110" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_ManaGainTicks" Width="110" DefaultValue="0"/>
+                        <xctk:LongUpDown x:Name="I_ManaGainTicks" Width="110" DefaultValue="0"/>
                     </WrapPanel>
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,5,0,0">
                         <Label Content="+ Magic Levels:" Width="110" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_MagicLevels" Width="110" DefaultValue="0"/>
+                        <xctk:LongUpDown x:Name="I_MagicLevels" Width="110" DefaultValue="0"/>
                         <Label Content="+ Magic Levels %:" Width="110" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_MagicLevelsPercent" Width="110" DefaultValue="0"/>
+                        <xctk:LongUpDown x:Name="I_MagicLevelsPercent" Width="110" DefaultValue="0"/>
                     </WrapPanel>
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,5,0,0">
                         <Label Content="Crit Chance:" Width="110" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_CritChance" Width="110" DefaultValue="0"/>
+                        <xctk:LongUpDown x:Name="I_CritChance" Width="110" DefaultValue="0"/>
                         <Label Content="Crit Amount:" Width="110" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_CritAmount" Width="110" DefaultValue="0"/>
+                        <xctk:LongUpDown x:Name="I_CritAmount" Width="110" DefaultValue="0"/>
                     </WrapPanel>
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,5,0,0">
                         <Label Content="Life Leech Chance:" Width="130" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_LifeLeechChance"  Width="90" DefaultValue="0"/>
+                        <xctk:LongUpDown x:Name="I_LifeLeechChance"  Width="90" DefaultValue="0"/>
                         <Label Content="Life Leech Amount:" Width="130" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_LifeLeechAmount" Width="90" DefaultValue="0"/>
+                        <xctk:LongUpDown x:Name="I_LifeLeechAmount" Width="90" DefaultValue="0"/>
                     </WrapPanel>
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,5,0,0">
                         <Label Content="Mana Leech Chance:" Width="130" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_ManaLeechChance" Width="90" DefaultValue="0"/>
+                        <xctk:LongUpDown x:Name="I_ManaLeechChance" Width="90" DefaultValue="0"/>
                         <Label Content="Mana Leech Amount:" Width="130"  HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_ManaLeechAmount" Width="90" DefaultValue="0"/>
+                        <xctk:LongUpDown x:Name="I_ManaLeechAmount" Width="90" DefaultValue="0"/>
                     </WrapPanel>
                     <Separator Margin="0,5,0,5"/>
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,5,0,0">
                         <Label Content="+Sword:" Width="110" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_SkillSword" Width="110" DefaultValue="0"/>
+                        <xctk:LongUpDown x:Name="I_SkillSword" Width="110" DefaultValue="0"/>
                         <Label Content="+Sword %:" Width="110" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_SkillSwordPercent" Width="110" DefaultValue="0"/>
+                        <xctk:LongUpDown x:Name="I_SkillSwordPercent" Width="110" DefaultValue="0"/>
                     </WrapPanel>
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,5,0,0">
                         <Label Content="+Axe:" Width="110" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_SkillAxe" Width="110" DefaultValue="0"/>
+                        <xctk:LongUpDown x:Name="I_SkillAxe" Width="110" DefaultValue="0"/>
                         <Label Content="+Axe %:" Width="110" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_SkillAxePercent" Width="110" DefaultValue="0"/>
+                        <xctk:LongUpDown x:Name="I_SkillAxePercent" Width="110" DefaultValue="0"/>
                     </WrapPanel>
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,5,0,0">
                         <Label Content="+Club:" Width="110" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_SkillClub" Width="110" DefaultValue="0"/>
+                        <xctk:LongUpDown x:Name="I_SkillClub" Width="110" DefaultValue="0"/>
                         <Label Content="+Club %:" Width="110" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_SkillClubPercent" Width="110" DefaultValue="0"/>
+                        <xctk:LongUpDown x:Name="I_SkillClubPercent" Width="110" DefaultValue="0"/>
                     </WrapPanel>
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,5,0,0">
                         <Label Content="+Dist:" Width="110" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_SkillDist" Width="110" DefaultValue="0"/>
+                        <xctk:LongUpDown x:Name="I_SkillDist" Width="110" DefaultValue="0"/>
                         <Label Content="+Dist %:" Width="110" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_SkillDistPercent" Width="110" DefaultValue="0"/>
+                        <xctk:LongUpDown x:Name="I_SkillDistPercent" Width="110" DefaultValue="0"/>
                     </WrapPanel>
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,5,0,0">
                         <Label Content="+Shield:" Width="110" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_SkillShield" Width="110" DefaultValue="0"/>
+                        <xctk:LongUpDown x:Name="I_SkillShield" Width="110" DefaultValue="0"/>
                         <Label Content="+Shield %:" Width="110" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_SkillShieldPercent" Width="110" DefaultValue="0"/>
+                        <xctk:LongUpDown x:Name="I_SkillShieldPercent" Width="110" DefaultValue="0"/>
                     </WrapPanel>
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,5,0,0">
                         <Label Content="+Fist:" Width="110" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_SkillFist" Width="110" DefaultValue="0"/>
+                        <xctk:LongUpDown x:Name="I_SkillFist" Width="110" DefaultValue="0"/>
                         <Label Content="+Fist %:" Width="110" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_SkillFistPercent" Width="110" DefaultValue="0"/>
+                        <xctk:LongUpDown x:Name="I_SkillFistPercent" Width="110" DefaultValue="0"/>
                     </WrapPanel>
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,5,0,0">
                         <Label Content="+Fish:" Width="110" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_SkillFish" Width="110" DefaultValue="0"/>
+                        <xctk:LongUpDown x:Name="I_SkillFish" Width="110" DefaultValue="0"/>
                         <Label Content="+Fish %:" Width="110" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_SkillSFishPercent" Width="110" DefaultValue="0"/>
+                        <xctk:LongUpDown x:Name="I_SkillSFishPercent" Width="110" DefaultValue="0"/>
                     </WrapPanel>
                     <Separator Margin="0,5,0,5"/>
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,5,0,0">
                         <Label Content="Absorb All %:" Width="130" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_AbsorbAll" Width="90" DefaultValue="0"/>
+                        <xctk:LongUpDown x:Name="I_AbsorbAll" Width="90" DefaultValue="0"/>
                         <Label Content="Absorb Elements %:" Width="130" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_AbsorbElements" Width="90" DefaultValue="0"/>
+                        <xctk:LongUpDown x:Name="I_AbsorbElements" Width="90" DefaultValue="0"/>
                     </WrapPanel>
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,5,0,0">
                         <Label Content="Absorb Magic %:" Width="130" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_AbsorbMagic" Width="90" DefaultValue="0"/>
+                        <xctk:LongUpDown x:Name="I_AbsorbMagic" Width="90" DefaultValue="0"/>
                         <Label Content="Absorb Fire %:" Width="130" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_AbsorbFire" Width="90" DefaultValue="0"/>
+                        <xctk:LongUpDown x:Name="I_AbsorbFire" Width="90" DefaultValue="0"/>
                     </WrapPanel>
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,5,0,0">
                         <Label Content="Absorb Energy %:" Width="130" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_AbsorbEnergy" Width="90" DefaultValue="0"/>
+                        <xctk:LongUpDown x:Name="I_AbsorbEnergy" Width="90" DefaultValue="0"/>
                         <Label Content="Absorb Poison %:" Width="130" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_AbsorbPoison" Width="90" DefaultValue="0"/>
+                        <xctk:LongUpDown x:Name="I_AbsorbPoison" Width="90" DefaultValue="0"/>
                     </WrapPanel>
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,5,0,0">
                         <Label Content="Absorb Ice %:" Width="130" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_AbsorbIce" Width="90" DefaultValue="0"/>
+                        <xctk:LongUpDown x:Name="I_AbsorbIce" Width="90" DefaultValue="0"/>
                         <Label Content="Absorb Earth %:" Width="130" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_AbsorbEarth" Width="90" DefaultValue="0"/>
+                        <xctk:LongUpDown x:Name="I_AbsorbEarth" Width="90" DefaultValue="0"/>
                     </WrapPanel>
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,5,0,0">
                         <Label Content="Absorb Death %:" Width="130" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_AbsorbDeath" Width="90" DefaultValue="0"/>
+                        <xctk:LongUpDown x:Name="I_AbsorbDeath" Width="90" DefaultValue="0"/>
                         <Label Content="Absorb Holy %:" Width="130" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_AbsorbHoly" Width="90" DefaultValue="0"/>
+                        <xctk:LongUpDown x:Name="I_AbsorbHoly" Width="90" DefaultValue="0"/>
                     </WrapPanel>
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,5,0,0">
                         <Label Content="Absorb Physical %:" Width="130" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_AbsorbPhysical" Width="90" DefaultValue="0"/>
+                        <xctk:LongUpDown x:Name="I_AbsorbPhysical" Width="90" DefaultValue="0"/>
                         <Label Content="Absorb Healing %:" Width="130" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_AbsorbHealing" Width="90" DefaultValue="0"/>
+                        <xctk:LongUpDown x:Name="I_AbsorbHealing" Width="90" DefaultValue="0"/>
                     </WrapPanel>
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,5,0,0">
                         <Label Content="Absorb Life Drain %:" Width="130" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_AbsorbLifeDrain" Width="90" DefaultValue="0"/>
+                        <xctk:LongUpDown x:Name="I_AbsorbLifeDrain" Width="90" DefaultValue="0"/>
                         <Label Content="Absorb Mana Drain %:" Width="140" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_AbsorbManaDrain" Width="80" DefaultValue="0"/>
+                        <xctk:LongUpDown x:Name="I_AbsorbManaDrain" Width="80" DefaultValue="0"/>
                     </WrapPanel>
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,5,0,0">
                         <Label Content="Absorb Drown %:" Width="130" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <xctk:IntegerUpDown x:Name="I_AbsorbDrown"  Width="90" DefaultValue="0"/>
+                        <xctk:LongUpDown x:Name="I_AbsorbDrown"  Width="90" DefaultValue="0"/>
                     </WrapPanel>
                     <Separator Margin="0,5,0,5"/>
                     <Button x:Name="SaveItemButton" Content="Save" materialDesign:RippleAssist.IsDisabled="True" Height="30" Width="300" Click="SaveItemButton_Click"  Margin="0,10,0,10">
