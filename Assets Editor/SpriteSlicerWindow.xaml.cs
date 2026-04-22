@@ -354,8 +354,8 @@ namespace Assets_Editor
             SlicerStatusBar.MessageQueue?.Enqueue(
                 "Slicing… please wait.", null, null, null, false, true, TimeSpan.FromSeconds(60));
 
-            _slicedSprites.Clear();
-            SlicedSpritesPanel.Children.Clear();
+            // Release memory from any previous batch before allocating the new one.
+            ClearSlicedSprites();
 
             // Capture everything the background thread will need before leaving the UI thread.
             Bitmap srcSnapshot    = _sourceBitmap;
@@ -423,9 +423,32 @@ namespace Assets_Editor
 
         private void ClearSlices_Click(object sender, RoutedEventArgs e)
         {
-            _slicedSprites.Clear();
+            ClearSlicedSprites();
+        }
+
+        /// <summary>
+        /// Clears all sliced-sprite data and forces a full GC cycle on a background thread so
+        /// the unmanaged WIC/GDI+ memory backing each <see cref="BitmapSource"/> is reclaimed
+        /// promptly rather than waiting for the next scheduled collection.
+        /// </summary>
+        private void ClearSlicedSprites()
+        {
+            // Drop all UI references first so nothing keeps the BitmapSources alive.
             SlicedSpritesPanel.Children.Clear();
+            _slicedSprites.Clear();
             UpdateSliceCountLabel();
+
+            // Run GC on a pool thread to avoid blocking the UI.
+            // Two passes are needed: the first collects the BitmapSource wrappers and
+            // queues their finalizers; WaitForPendingFinalizers lets the finalizer thread
+            // release the unmanaged COM/WIC objects; the second pass collects anything
+            // that became unreachable only after finalization.
+            Task.Run(() =>
+            {
+                GC.Collect(GC.MaxGeneration, GCCollectionMode.Aggressive, blocking: true);
+                GC.WaitForPendingFinalizers();
+                GC.Collect(GC.MaxGeneration, GCCollectionMode.Aggressive, blocking: true);
+            });
         }
 
         //  transparency helpers 
@@ -638,7 +661,10 @@ namespace Assets_Editor
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
+            // Clear sprites and free their unmanaged backing memory.
+            ClearSlicedSprites();
             _sourceBitmap?.Dispose();
+            _sourceBitmap = null;
         }
     }
 
